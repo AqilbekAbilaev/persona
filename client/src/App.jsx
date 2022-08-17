@@ -1,13 +1,12 @@
-import SignInForm from './components/sign-in-form'
-import './App.css'
+import SignInForm from "./components/login/login";
+import "./App.css";
 
 function App() {
-
   return (
-    <div>
+    <>
       <SignInForm />
-    </div>
-  )
+    </>
+  );
 }
 
-export default App
+export default App;
