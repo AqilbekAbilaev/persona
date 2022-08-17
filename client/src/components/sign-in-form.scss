@@ -1,0 +1,84 @@
+.sign-in-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.image-container {
+  width: 60%;
+}
+
+.form-container {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.side-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.col {
+
+//   flex: initial;
+  padding: 0;
+}
+
+.floating-label {
+  text-align: start;
+}
+
+.login-btn {
+  display: block;
+  margin-left: auto;
+}
+
+@media (max-width: 756px) {
+  .sign-in-form {
+    overflow: visible;
+    color: white; 
+  }
+
+  .form {
+    color: black;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .image-container {
+    width: 100%;
+    height: 20rem;
+
+    .side-image {
+      position: fixed;
+      bottom: 0;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 0;
+    }
+  }
+
+  .form-container {
+    width: 100%;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 1rem 1rem;
+    border-radius: 6px;
+    color: white; 
+  }
+
+  .social-network-container {
+    display: flex;
+    flex-direction: row;
+  }
+}
