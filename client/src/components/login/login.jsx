@@ -13,7 +13,7 @@ import github from "../../assets/github.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./login.scss";
 
-const SignInForm = () => {
+const Login = () => {
   // const [usr, setUsr] = useState("");
 
   return (
@@ -21,13 +21,13 @@ const SignInForm = () => {
       <Col className="Login__img"></Col>
 
       <Col className="Login__form">
-        <h1>Login</h1>
+        <h1 className="Login__title">Login</h1>
         <Form className="Login__form-container mt-4">
           <Form.Group>
             <FloatingLabel
               controlId="floatingInput"
               label="Email address"
-              className="floating-label"
+              className="Login__form-label"
             >
               <Form.Control type="email" placeholder="name@example.com" />
             </FloatingLabel>
@@ -37,12 +37,12 @@ const SignInForm = () => {
             <FloatingLabel
               controlId="floatingPassword"
               label="Password"
-              className="floating-label"
+              className="Login__form-label"
             >
               <Form.Control type="password" placeholder="Password" />
             </FloatingLabel>
           </Form.Group>
-          <Button type="submit" variant="primary" className="login-btn">
+          <Button type="submit" variant="primary" className="Login__form-btn">
             Login
           </Button>
         </Form>
@@ -51,27 +51,43 @@ const SignInForm = () => {
         <Row className="Login__media mt-2">
           <Col>
             <Button variant="light">
-              <img className="Login__media-icon" src={twitter} alt="twitter logo" />
+              <img
+                className="Login__media-icon"
+                src={twitter}
+                alt="twitter logo"
+              />
             </Button>
           </Col>
           <Col>
             <Button variant="light">
-              <img className="Login__media-icon" src={google} alt="google logo" />
+              <img
+                className="Login__media-icon"
+                src={google}
+                alt="google logo"
+              />
             </Button>
           </Col>
           <Col>
             <Button variant="light">
-              <img className="Login__media-icon" src={facebook} alt="facebook logo" />
+              <img
+                className="Login__media-icon"
+                src={facebook}
+                alt="facebook logo"
+              />
             </Button>
           </Col>
           <Col>
             <Button variant="light">
-              <img className="Login__media-icon" src={github} alt="github logo" />
+              <img
+                className="Login__media-icon"
+                src={github}
+                alt="github logo"
+              />
             </Button>
           </Col>
         </Row>
 
-        <Link to="/register" className="mt-3">
+        <Link to="/register" className="m-3">
           Register
         </Link>
       </Col>
@@ -79,4 +95,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default Login;
