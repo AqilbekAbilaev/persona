@@ -18,11 +18,11 @@ const Login = () => {
 
   return (
     <Row className="Login">
-      <Col className="Login__img"></Col>
+      <Col className="Login-img"></Col>
 
-      <Col className="Login__form">
+      <Col className="Login-form">
         <h1 className="Login__title">Login</h1>
-        <Form className="Login__form-container mt-4">
+        <Form className="Login-form__container mt-4">
           <Form.Group>
             <FloatingLabel
               controlId="floatingInput"
@@ -47,7 +47,7 @@ const Login = () => {
           </Button>
         </Form>
 
-        <h5 className="mt-4">Login with social networks</h5>
+        <h5 className="Login-media__title mt-4">Login with social networks</h5>
         <Row className="Login__media mt-2">
           <Col>
             <Button variant="light">

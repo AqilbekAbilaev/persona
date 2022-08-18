@@ -5,19 +5,19 @@
   align-items: stretch;
   margin: 0;
 
-  &__img {
+  &-img {
     flex: 3;
-    background: url('../../assets/background.jpg') center / cover no-repeat;
+    background: url("../../assets/background.jpg") center / cover no-repeat;
   }
 
-  &__form {
+  &-form {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     flex: 2;
 
-    &-container {
+    &__container {
       max-width: 20rem;
       width: 80%;
     }
@@ -35,6 +35,10 @@
   &__media {
     column-gap: 1rem;
 
+    &__title {
+      font-weight: 300;
+    }
+
     .col {
       padding: 0;
     }
@@ -48,7 +52,6 @@
 
 @media (max-width: 768px) {
   .Login {
-    // height: auto;
     flex-direction: column;
     row-gap: 1rem;
     overflow-y: scroll;
@@ -62,7 +65,7 @@
     }
 
     &__media {
-      column-gap: 0;
+      column-gap: 1rem;
     }
   }
 }
