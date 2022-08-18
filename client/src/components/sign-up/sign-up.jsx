@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 
+// Bootstrap components
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Button from "react-bootstrap/Button";
 
+// Icons
 import twitter from "../../assets/twitter.svg";
 import google from "../../assets/google.svg";
 import facebook from "../../assets/facebook.svg";
@@ -17,7 +19,7 @@ const SignUp = () => {
   return (
     <Row className="Signup">
       <Col className="Signup-form">
-        <h1 className="Signup__title">Sign up</h1>
+        <h1 className="Signup-form__title">Sign up</h1>
         <Form className="Signup-form__container mt-4">
           <Form.Group>
             <FloatingLabel
@@ -53,7 +55,7 @@ const SignUp = () => {
           </Button>
         </Form>
 
-        <h5 className="mt-4" style={{fontWeight: 200}}>Sign up with social networks</h5>
+        <h5 className="Signup-media__title mt-4">Sign up with social networks</h5>
         <Row className="Signup-media mt-2">
           <Col>
             <Button variant="light">
@@ -93,7 +95,7 @@ const SignUp = () => {
           </Col>
         </Row>
 
-        <Link to="/login" className="m-3">
+        <Link to="/login" className="link m-3">
           Login
         </Link>
       </Col>

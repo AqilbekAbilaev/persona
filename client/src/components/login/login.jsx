@@ -21,13 +21,13 @@ const Login = () => {
       <Col className="Login-img"></Col>
 
       <Col className="Login-form">
-        <h1 className="Login__title">Login</h1>
+        <h1 className="Login-form__title">Login</h1>
         <Form className="Login-form__container mt-4">
           <Form.Group>
             <FloatingLabel
               controlId="floatingInput"
               label="Email address"
-              className="Login__form-label"
+              className="Login-form__label"
             >
               <Form.Control type="email" placeholder="name@example.com" />
             </FloatingLabel>
@@ -37,22 +37,22 @@ const Login = () => {
             <FloatingLabel
               controlId="floatingPassword"
               label="Password"
-              className="Login__form-label"
+              className="Login-form__label"
             >
               <Form.Control type="password" placeholder="Password" />
             </FloatingLabel>
           </Form.Group>
-          <Button type="submit" variant="primary" className="Login__form-btn">
+          <Button type="submit" variant="primary" className="Login-form__btn">
             Login
           </Button>
         </Form>
 
         <h5 className="Login-media__title mt-4">Login with social networks</h5>
-        <Row className="Login__media mt-2">
+        <Row className="Login-media mt-2">
           <Col>
             <Button variant="light">
               <img
-                className="Login__media-icon"
+                className="Login-media__icon"
                 src={twitter}
                 alt="twitter logo"
               />
@@ -61,7 +61,7 @@ const Login = () => {
           <Col>
             <Button variant="light">
               <img
-                className="Login__media-icon"
+                className="Login-media__icon"
                 src={google}
                 alt="google logo"
               />
@@ -70,7 +70,7 @@ const Login = () => {
           <Col>
             <Button variant="light">
               <img
-                className="Login__media-icon"
+                className="Login-media__icon"
                 src={facebook}
                 alt="facebook logo"
               />
@@ -79,7 +79,7 @@ const Login = () => {
           <Col>
             <Button variant="light">
               <img
-                className="Login__media-icon"
+                className="Login-media__icon"
                 src={github}
                 alt="github logo"
               />
@@ -87,7 +87,7 @@ const Login = () => {
           </Col>
         </Row>
 
-        <Link to="/register" className="m-3">
+        <Link to="/register" className="link m-3">
           Register
         </Link>
       </Col>
