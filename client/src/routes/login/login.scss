@@ -58,14 +58,13 @@
   .Login {
     flex-direction: column;
     row-gap: 1rem;
-    min-height: 100vh;
 
     &-img {
-      flex: 1;
+      flex: 4;
     }
 
     &-form {
-      flex: 2;
+      flex: 1;
 
       &__title {
         font-size: 2.8rem;
