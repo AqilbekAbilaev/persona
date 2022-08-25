@@ -1,5 +1,6 @@
-// import { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
@@ -13,8 +14,43 @@ import github from "../../assets/github.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./login.scss";
 
+const URL = "http://localhost:3500/login";
+
 const Login = () => {
-  // const [usr, setUsr] = useState("");
+  const [usr, setUsr] = useState({
+    email: "",
+    pwd: "",
+  });
+
+  const [err, setErr] = useState("");
+
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setUsr((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, pwd } = usr;
+
+    if (!pwd || !email) {
+      setErr("Invalid value");
+    }
+    setErr("");
+
+    axios
+      .post(URL, {
+        email,
+        pwd,
+      })
+      .then(data => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setErr(err.data.errMessage);
+      });
+  };
 
   return (
     <Row className="Login">
@@ -22,14 +58,20 @@ const Login = () => {
 
       <Col className="Login-form">
         <h1 className="Login-form__title">Login</h1>
-        <Form className="Login-form__container mt-4">
+        <Form className="Login-form__container mt-4" onSubmit={handleSubmit}>
+          <p style={{ color: "red" }}>{err}</p>
           <Form.Group>
             <FloatingLabel
               controlId="floatingInput"
               label="Email address"
               className="Login-form__label"
             >
-              <Form.Control type="email" placeholder="name@example.com" />
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="name@example.com"
+                onChange={handleChange}
+              />
             </FloatingLabel>
           </Form.Group>
 
@@ -39,7 +81,12 @@ const Login = () => {
               label="Password"
               className="Login-form__label"
             >
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                name="pwd"
+                type="password"
+                placeholder="Password"
+                onChange={handleChange}
+              />
             </FloatingLabel>
           </Form.Group>
           <Button type="submit" variant="primary" className="Login-form__btn">

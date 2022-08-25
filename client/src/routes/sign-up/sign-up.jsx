@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 // Bootstrap components
 import Row from "react-bootstrap/Row";
@@ -15,19 +17,62 @@ import github from "../../assets/github.svg";
 
 import "./sign-up.scss";
 
+const URL = "http://localhost:3500/register";
+
 const SignUp = () => {
+  const [usr, setUser] = useState({
+    email: "",
+    pwd: "",
+    conf_pwd: "",
+  });
+
+  const [err, setErr] = useState("");
+
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setUser((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { email, pwd, conf_pwd } = usr;
+    if (pwd !== conf_pwd) {
+      setErr("Passwords do not match");
+      return;
+    }
+    setErr(null);
+
+    axios
+      .post(URL, {
+        email,
+        pwd,
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Row className="Signup">
       <Col className="Signup-form">
         <h1 className="Signup-form__title">Sign up</h1>
-        <Form className="Signup-form__container mt-4">
+        <Form className="Signup-form__container mt-4" onSubmit={handleSubmit}>
+          <p style={{ color: "red" }}>{err}</p>
           <Form.Group>
             <FloatingLabel
               controlId="floatingInput"
               label="Email address"
               className="Signup-form__label"
             >
-              <Form.Control type="email" placeholder="name@example.com" />
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="name@example.com"
+                onChange={handleChange}
+              />
             </FloatingLabel>
           </Form.Group>
 
@@ -37,7 +82,12 @@ const SignUp = () => {
               label="Password"
               className="Signup-form__label"
             >
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                name="pwd"
+                type="password"
+                placeholder="Password"
+                onChange={handleChange}
+              />
             </FloatingLabel>
           </Form.Group>
 
@@ -47,15 +97,21 @@ const SignUp = () => {
               label="Confirm password"
               className="Signup-form__label"
             >
-              <Form.Control type="password" placeholder="Confirm password" />
+              <Form.Control
+                name="conf_pwd"
+                type="password"
+                placeholder="Confirm password"
+                onChange={handleChange}
+              />
             </FloatingLabel>
           </Form.Group>
           <Button type="submit" variant="primary" className="Signup-form__btn">
             Sign up
           </Button>
         </Form>
-
-        <h5 className="Signup-media__title mt-4">Sign up with social networks</h5>
+        <h5 className="Signup-media__title mt-4">
+          Sign up with social networks
+        </h5>
         <Row className="Signup-media mt-2">
           <Col>
             <Button variant="light">

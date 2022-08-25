@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import UserContext from "../../context/user";
 import { Link, Outlet } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
@@ -7,9 +9,10 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import navLogo from "../../assets/icons8-storage-48.png";
 
-import './navigation.scss';
+import "./navigation.scss";
 
 const Navigation = () => {
+  const { usr } = useContext(UserContext);
   return (
     <>
       <Navbar expand="lg">
@@ -28,18 +31,17 @@ const Navigation = () => {
               />
               <Button variant="outline-primary">Search</Button>
             </Form>
-            <Nav
-              className="ml-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
-            >
-              <Nav.Link href="#">
-                <Link className="nav-link" to="/login">Login</Link>
-              </Nav.Link>
-              <Nav.Link href="#">
-                <Link className="nav-link" to="/register">Register</Link>
-              </Nav.Link>
-            </Nav>
+            {usr?.email ? null : (
+              <Nav
+                className="ml-auto my-2 my-lg-0"
+                style={{ maxHeight: "100px" }}
+                navbarScroll
+              >
+                <Link className="nav-link" to="/login">
+                  Login
+                </Link>
+              </Nav>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
