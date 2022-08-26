@@ -12,7 +12,6 @@ const handleRegister = async (req, res) => {
   }
 
   const encryptPwd = await bcrypt.hash(pwd, 5);
-
   const result = await User.create({
     email,
     pwd: encryptPwd,

@@ -43,16 +43,44 @@ const Admin = () => {
     }
   };
 
-  console.log(checkbox);
+  const handleDelete = () => {
+    let ids = usrs.map((item, index) => {
+      if (checkbox.includes(index + 1)) return item._id;
+    });
+    ids = ids.filter(Boolean);
+    axios
+      .delete(`${URL}:${ids}`)
+      .then((data) => {
+        setUsrs(
+          usrs.filter((item, index) => checkbox.includes(index + 1) === false)
+        );
+        setCheckbox([]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Container>
       <h3>Admin page</h3>
       <div className="actions">
-        <Button variant="danger">Delete</Button>
-        <Button variant="warning">Block</Button>
-        <Button variant="success">Unblock</Button>
-        <Button variant="primary">Admin</Button>
+        <Button
+          variant="danger"
+          disabled={checkbox.length == 0}
+          onClick={handleDelete}
+        >
+          Delete
+        </Button>
+        <Button variant="warning" disabled={checkbox.length == 0}>
+          Block
+        </Button>
+        <Button variant="success" disabled={checkbox.length == 0}>
+          Unblock
+        </Button>
+        <Button variant="primary" disabled={checkbox.length == 0}>
+          Admin
+        </Button>
       </div>
 
       <Table striped bordered hover>
@@ -62,7 +90,9 @@ const Admin = () => {
               <Form.Check
                 type="Checkbox"
                 onChange={handleAllCheckbox}
-                checked={usrs.length === checkbox.length}
+                checked={
+                  usrs.length !== 0 ? usrs.length == checkbox.length : false
+                }
               />
             </th>
             <th>#</th>
