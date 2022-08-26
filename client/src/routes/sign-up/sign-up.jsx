@@ -21,6 +21,7 @@ const URL = "http://localhost:3500/register";
 
 const SignUp = () => {
   const [usr, setUser] = useState({
+    usrname: "",
     email: "",
     pwd: "",
     conf_pwd: "",
@@ -35,7 +36,7 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, pwd, conf_pwd } = usr;
+    const { email, pwd, conf_pwd, usrname } = usr;
     if (pwd !== conf_pwd) {
       setErr("Passwords do not match");
       return;
@@ -46,6 +47,7 @@ const SignUp = () => {
       .post(URL, {
         email,
         pwd,
+        usrname,
       })
       .then((data) => {
         console.log(data);
@@ -59,8 +61,24 @@ const SignUp = () => {
     <Row className="Signup">
       <Col className="Signup-form">
         <h1 className="Signup-form__title">Sign up</h1>
-        <Form className="Signup-form__container mt-4" onSubmit={handleSubmit}>
+        <Form className="Signup-form__container" onSubmit={handleSubmit}>
           <p style={{ color: "red" }}>{err}</p>
+
+          <Form.Group>
+            <FloatingLabel
+              controlId="floatingUsername"
+              label="Username"
+              className="Signup-form__label"
+            >
+              <Form.Control
+                name="usrname"
+                type="text"
+                placeholder="John Doe"
+                onChange={handleChange}
+              />
+            </FloatingLabel>
+          </Form.Group>
+
           <Form.Group>
             <FloatingLabel
               controlId="floatingInput"
@@ -76,7 +94,7 @@ const SignUp = () => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group className="mt-3 mb-3">
+          <Form.Group>
             <FloatingLabel
               controlId="floatingPassword"
               label="Password"
@@ -91,9 +109,9 @@ const SignUp = () => {
             </FloatingLabel>
           </Form.Group>
 
-          <Form.Group className="mt-3 mb-3">
+          <Form.Group>
             <FloatingLabel
-              controlId="floatingPassword"
+              controlId="floatingConfirmPassword"
               label="Confirm password"
               className="Signup-form__label"
             >

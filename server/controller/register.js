@@ -2,7 +2,7 @@ const User = require("../model/user");
 const bcrypt = require("bcrypt");
 
 const handleRegister = async (req, res) => {
-  const { email, pwd } = req.body;
+  const { email, pwd, usrname } = req.body;
   if (email == "" || pwd == "")
     return res.json({ err_message: "Invalid email or password" });
 
@@ -16,6 +16,7 @@ const handleRegister = async (req, res) => {
   const result = await User.create({
     email,
     pwd: encryptPwd,
+    usrname
   });
 
   console.log(result);

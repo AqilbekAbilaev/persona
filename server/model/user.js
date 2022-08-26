@@ -13,6 +13,11 @@ const userSchema = new Schema({
     is_admin: {
         type: Boolean,
         default: false
+    },
+    usrname: String,
+    is_blocked: {
+        type: Boolean,
+        default: false
     }
 });
 
