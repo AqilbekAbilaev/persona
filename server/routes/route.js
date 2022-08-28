@@ -3,9 +3,17 @@ const router = express.Router();
 const registerController = require("../controller/register");
 const loginController = require("../controller/login");
 const users = require("../controller/users");
+const admin = require("../controller/admin");
+const checkParams = require("../middleware/checkParams");
 
 router.post("/register", registerController);
 router.post("/login", loginController);
+
 router.get("/users", users.getAllUsers);
-router.delete("/users:ids", users.deleteUsers)
+router.delete("/users:ids", checkParams, users.deleteUsers);
+router.patch("/users:ids", checkParams, users.blockUsers);
+router.patch("/users/unblock:ids", checkParams, users.unblockUsers);
+
+router.patch("/admin:ids", checkParams, admin.addAdmin);
+router.patch("/admin/remove:ids", checkParams, admin.removeAdmin);
 module.exports = router;

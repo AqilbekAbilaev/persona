@@ -7,14 +7,26 @@ const getAllUsers = async (req, res) => {
 };
 
 const deleteUsers = async (req, res) => {
-  const params = req.params?.ids?.slice(1);
-  if (!params) {
-    return res.status(404).json({ message: "Invalid user id" });
-  }
-  const users = params?.split(",");
-  const result = await User.deleteMany({ _id: { $in: users } });
-  console.log(result);
-  return res.json({ message: "Successfully removed users" });
+  await User.deleteMany({ _id: { $in: res.locals.params } });
+  const restUsers = await User.find();
+  return res.json(restUsers);
 };
 
-module.exports = { getAllUsers, deleteUsers };
+const blockUsers = async (req, res) => {
+  await User.updateMany(
+    { _id: { $in: res.locals.params } },
+    { $set: { is_blocked: true } }
+  );
+  const updatedUsers = await User.find();
+  return res.json(updatedUsers);
+};
+
+const unblockUsers = async (req, res) => {
+  await User.updateMany(
+    { _id: { $in: res.locals.params } },
+    { $set: { is_blocked: false } }
+  );
+  const updatedUsers = await User.find();
+  return res.json(updatedUsers);
+};
+module.exports = { getAllUsers, deleteUsers, blockUsers, unblockUsers };

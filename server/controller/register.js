@@ -18,8 +18,6 @@ const handleRegister = async (req, res) => {
     usrname
   });
 
-  console.log(result);
-
   res.status(201).json({ success: "new user created" });
 };
 
