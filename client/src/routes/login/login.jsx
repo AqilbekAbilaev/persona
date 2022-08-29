@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { Row, Col, Button } from "react-bootstrap";
 
-import twitter from "../../assets/twitter.svg";
 import google from "../../assets/google.svg";
-import facebook from "../../assets/facebook.svg";
 import github from "../../assets/github.svg";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -23,6 +22,9 @@ const Login = () => {
   });
 
   const [err, setErr] = useState("");
+
+  const { loginWithRedirect, user, isAuthenticated } = useAuth0();
+  
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -43,7 +45,7 @@ const Login = () => {
         email,
         pwd,
       })
-      .then(data => {
+      .then((data) => {
         console.log(data);
       })
       .catch((err) => {
@@ -97,29 +99,11 @@ const Login = () => {
         <h5 className="Login-media__title mt-4">Login with social networks</h5>
         <Row className="Login-media mt-2">
           <Col>
-            <Button variant="light">
-              <img
-                className="Login-media__icon"
-                src={twitter}
-                alt="twitter logo"
-              />
-            </Button>
-          </Col>
-          <Col>
-            <Button variant="light">
+            <Button variant="light" onClick={loginWithRedirect}>
               <img
                 className="Login-media__icon"
                 src={google}
                 alt="google logo"
-              />
-            </Button>
-          </Col>
-          <Col>
-            <Button variant="light">
-              <img
-                className="Login-media__icon"
-                src={facebook}
-                alt="facebook logo"
               />
             </Button>
           </Col>

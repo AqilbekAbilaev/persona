@@ -10,9 +10,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Button from "react-bootstrap/Button";
 
 // Icons
-import twitter from "../../assets/twitter.svg";
 import google from "../../assets/google.svg";
-import facebook from "../../assets/facebook.svg";
 import github from "../../assets/github.svg";
 
 import "./sign-up.scss";
@@ -135,26 +133,8 @@ const SignUp = () => {
             <Button variant="light">
               <img
                 className="Signup-media__icon"
-                src={twitter}
-                alt="twitter logo"
-              />
-            </Button>
-          </Col>
-          <Col>
-            <Button variant="light">
-              <img
-                className="Signup-media__icon"
                 src={google}
                 alt="google logo"
-              />
-            </Button>
-          </Col>
-          <Col>
-            <Button variant="light">
-              <img
-                className="Signup-media__icon"
-                src={facebook}
-                alt="facebook logo"
               />
             </Button>
           </Col>

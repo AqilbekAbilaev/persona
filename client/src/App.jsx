@@ -13,7 +13,6 @@ import "./App.css";
 function App() {
   const { usr } = useContext(UserContext);
   console.log(usr);
-
   return (
     <>
       <Routes>
