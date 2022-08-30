@@ -31,7 +31,7 @@ const Navigation = () => {
               />
               <Button variant="outline-primary">Search</Button>
             </Form>
-            {usr?.email ? null : (
+            {usr ? null : (
               <Nav
                 className="ml-auto my-2 my-lg-0"
                 style={{ maxHeight: "100px" }}

@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const loginController = async (req, res) => {
   const { email, pwd } = req.body;
   if (email == "" || pwd == "")
-    return res.json({ errMessage: "Invalid email or password" });
+    return res.json({ message: "Invalid email or password" });
 
   let pswMatch;
   const user = await User.findOne({ email }).exec();
@@ -14,7 +14,7 @@ const loginController = async (req, res) => {
     return res.status(401).json("No user found");
   }
 
-  return pswMatch ? res.status(200).json({'message': 'logged in'}) : res.status(401).json({'errMessage': 'Invalid email or password'})
+  return pswMatch ? res.status(200).json({'message': 'logged in'}) : res.status(401).json({'message': 'Invalid email or password'})
 };
 
 module.exports = loginController;

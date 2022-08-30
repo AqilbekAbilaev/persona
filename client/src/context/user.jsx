@@ -1,10 +1,9 @@
 import { createContext, useState } from "react";
 
-const UserContext = createContext("");
+const UserContext = createContext("email");
 
 export const UserProvider = ({ children }) => {
-  const [usr, setUsr] = useState({email: "aqilbek"});
-  console.log("Use context")
+  const [usr, setUsr] = useState();
 
   return (
     <UserContext.Provider value={{ usr, setUsr }}>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -24,7 +24,7 @@ const Login = () => {
   const [err, setErr] = useState("");
 
   const { loginWithRedirect, user, isAuthenticated } = useAuth0();
-  
+  const navigate = useNavigate();
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -46,12 +46,19 @@ const Login = () => {
         pwd,
       })
       .then((data) => {
-        console.log(data);
+        if (data.status == 200) {
+          navigate("/");
+        }
       })
       .catch((err) => {
         console.log(err);
-        setErr(err.data.errMessage);
+        setErr(err.data.message);
       });
+  };
+
+  const handleLoginRedirect = async () => {
+    await loginWithRedirect();
+    console.log(user);
   };
 
   return (
@@ -99,7 +106,7 @@ const Login = () => {
         <h5 className="Login-media__title mt-4">Login with social networks</h5>
         <Row className="Login-media mt-2">
           <Col>
-            <Button variant="light" onClick={loginWithRedirect}>
+            <Button variant="light" onClick={handleLoginRedirect}>
               <img
                 className="Login-media__icon"
                 src={google}
