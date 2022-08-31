@@ -1,4 +1,31 @@
+.create-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-text {
+  display: block;
+  text-align: start;
+}
+
+.create-title {
+  margin-top: 3rem;
+}
+
 .label {
   display: block;
-  text-align: start ;
+  text-align: start;
+  margin-top: 1rem;
+  margin-bottom: 0.2rem;
 }
+
+.tag {
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+
+.tag-0 {
+  background: aqua;
+}
+
