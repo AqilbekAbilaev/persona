@@ -10,7 +10,9 @@ const createTopicController = async (req, res) => {
   const data = req.body;
   if (!data) return res.status(404).json({ message: "Invalid topic" });
 
-  const duplicate = await Topics.findOne({ topic: data.topic.toLowerCase() }).exec();
+  const duplicate = await Topics.findOne({
+    topic: data.topic.toLowerCase(),
+  }).exec();
   if (duplicate) {
     return res.status(409).json({ message: "Topic already exists" });
   }
@@ -23,12 +25,12 @@ const createTopicController = async (req, res) => {
 const tagController = async (req, res) => {
   const tags = await Tags.find();
   return res.json(tags);
-}
+};
 
 const createTagController = async (req, res) => {
   const data = req.body;
 
-  if (!data) return res.status(404).json({ message: "Invalid tag" });
+  if (!data.tag) return res.status(404).json({ message: "Invalid tag" });
 
   const duplicate = await Tags.findOne({ tag: data.tag.toLowerCase() }).exec();
   if (duplicate) {
@@ -36,9 +38,13 @@ const createTagController = async (req, res) => {
   }
 
   const result = await Tags.create({ tag: data.tag.toLowerCase() });
-  console.log(result, "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
 
-  return res.json({ message: `${result} is created` });
-}
+  return res.json({ message: `Tag "${result.tag}" is created` });
+};
 
-module.exports = { topicController, createTopicController, tagController, createTagController };
+module.exports = {
+  topicController,
+  createTopicController,
+  tagController,
+  createTagController,
+};

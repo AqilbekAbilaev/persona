@@ -22,6 +22,7 @@ router.post("/social_auth", handleSocialAuth);
 
 router.get("/topics", require("../controller/create").topicController)
 router.post("/topics", require("../controller/create").createTopicController)
+
 router.get("/tags", require("../controller/create").tagController)
 router.post("/tags", require("../controller/create").createTagController)
 

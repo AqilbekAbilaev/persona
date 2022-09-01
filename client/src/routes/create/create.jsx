@@ -6,7 +6,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ReactMarkDown from "react-markdown";
-import MultipleSelect from "../../components/multipleselect"
+import MultipleSelect from "../../components/multipleselect/multipleselect";
+import CreateInputModal from "../../components/modal/modal";
 
 import "./create.scss";
 
@@ -73,55 +74,24 @@ const Create = (props) => {
             </Col>
             <Row>
               <Form.Text className="form-text" muted={false}>
-                Item level settings*
+                Collection Item's default forms*
               </Form.Text>
-              <Col>
-                <Form.Group controlId="id">
-                  <Form.Label>Id</Form.Label>
-                  <Form.Control type="text" />
-                </Form.Group>
+              <Col className="col-1">
+                <Form.Label className="label">Id</Form.Label>
+                <Form.Control disabled type="number" placeholder="Number" />
               </Col>
-
-              <Col>
-                <Form.Group controlId="name">
-                  <Form.Label>Name</Form.Label>
-                  <Form.Control type="text" />
-                </Form.Group>
+              <Col className="col-2">
+                <Form.Label className="label">Name</Form.Label>
+                <Form.Control disabled type="text" placeholder="String" />
               </Col>
-              <MultipleSelect />
-              {/* <Col style={{ display: "flex", alignItems: "center" }}>
-                <Form.Group controlId="tag">
-                  <Form.Label>Tag</Form.Label>
-                  <Form.Control type="text" onChange={handleChange} />
-                  <Form.Text>
-                    {field.map((item, index) => {
-                      return (
-                        <option
-                          key={index}
-                          value={item.topic}
-                          onClick={(e) => {
-                            if (!res.includes(e.target.value)) {
-                              setRes([...res, e.target.value]);
-                            }
-                          }}
-                        >
-                          {item.topic}
-                        </option>
-                      );
-                    })}
-                  </Form.Text>
-                </Form.Group>
-                <div>
-                  {res.map((item, index) => {
-                    return (
-                      <option className={"tag tag-" + index} key={index}>
-                        {item}
-                      </option>
-                    );
-                  })}
-                </div>
-              </Col> */}
+              <Col>
+                <Form.Label className="label">Tag</Form.Label>
+                <Form.Control disabled type="text" placeholder="Tag" />
+              </Col>
             </Row>
+
+            <CreateInputModal />
+
             {/* <Button variant="primary" type="submit">
           Submit
         </Button> */}
