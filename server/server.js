@@ -16,6 +16,7 @@ app.use(cors());
 app.use(cors_set);
 
 app.use("/", require("./routes/route"));
+app.use("/collection", require("./routes/collection"));
 
 mongoose.connection.once("open", () => {
   app.listen(PORT, () => {
