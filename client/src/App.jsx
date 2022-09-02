@@ -6,6 +6,7 @@ import Admin from "./routes/admin/admin";
 import Login from "./routes/login/login";
 import SignUp from "./routes/sign-up/sign-up";
 import Create from "./routes/create/create";
+import Collection from "./routes/collection/collection";
 
 import "./App.css";
 
@@ -22,6 +23,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="admin" element={<Admin />} />
           <Route path="create" element={<Create />} />
+          <Route path="collection" element={<Collection />} />
         </Route>
       </Routes>
     </>

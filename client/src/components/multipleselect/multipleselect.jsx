@@ -43,7 +43,6 @@ const MultipleSelect = () => {
           className="tag-input"
           type="text"
           onChange={handleChange}
-          disabled
         />
 
         <Form.Text className="tags">

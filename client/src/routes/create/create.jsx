@@ -13,17 +13,38 @@ import "./create.scss";
 
 const Create = (props) => {
   const [topic, setTopic] = useState([]);
+  const [collection, setCollection] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
+
   useEffect(() => {
     axios
       .get("http://localhost:3500/topics")
       .then((data) => setTopic(data.data));
   }, []);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const bodyFormData = new FormData();
+    Object.entries(collection).forEach((item) => {
+      bodyFormData.append([item[0]], item[1]);
+    });
+    bodyFormData.append("image", selectedImage);
+
+    const url = import.meta.env.VITE_URL + "/collections";
+    axios.post(url, bodyFormData);
+  };
+
+  const handleChange = (e) => {
+    const { value, name, checked } = e.target;
+    setCollection({ ...collection, [name]: value === "on" ? checked : value });
+  };
+
   return (
     <>
       <h2 className="create-title">Create collection </h2>
       <Container>
-        <Form>
+        <Form onSubmit={handleSubmit} encType="multipart/form-data">
           <Row>
             <Col>
               <Form.Group className="mb-3" controlId="formBasicName">
@@ -32,14 +53,16 @@ const Create = (props) => {
                 </Form.Text>
                 <Form.Label className="label">Name</Form.Label>
                 <Form.Control
+                  onChange={handleChange}
+                  name="name"
                   type="text"
                   placeholder="Enter the name of collection"
                 />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-3" controlId="topic">
                 <Form.Label className="label">Topic</Form.Label>
-                <Form.Select aria-label="Default select example">
+                <Form.Select name="topic" onChange={handleChange}>
                   <option></option>
                   {topic.map((item, index) => {
                     return (
@@ -54,21 +77,29 @@ const Create = (props) => {
 
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label className="label">Choose an image</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control
+                  type="file"
+                  onChange={(e) => {
+                    setSelectedImage(e.target.files[0]);
+                  }}
+                />
               </Form.Group>
             </Col>
             <Col>
               <Form.Group>
                 <Form.Label className="label">Description</Form.Label>
                 <Form.Control
+                  name="description"
+                  onChange={handleChange}
                   rows="8"
                   as="textarea"
-                  aria-label="With textarea"
                 />
                 <Form.Check
                   className="label"
                   type="checkbox"
                   label="Markdown"
+                  name="markdown"
+                  onChange={handleChange}
                 />
               </Form.Group>
             </Col>
@@ -91,10 +122,9 @@ const Create = (props) => {
             </Row>
 
             <CreateInputModal />
-
-            {/* <Button variant="primary" type="submit">
-          Submit
-        </Button> */}
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
           </Row>
         </Form>
       </Container>
