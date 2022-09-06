@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
@@ -8,19 +9,26 @@ import Button from "react-bootstrap/Button";
 import ReactMarkDown from "react-markdown";
 import MultipleSelect from "../../components/multipleselect/multipleselect";
 import CreateInputModal from "../../components/modal/modal";
+import useCollections from "../../hooks/useCollections";
+import useField from "../../hooks/useField";
 
 import "./create.scss";
 
+const URL = import.meta.env.VITE_URL;
 const Create = (props) => {
   const [topic, setTopic] = useState([]);
   const [collection, setCollection] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const { setCollections } = useCollections();
+  const { fields, setFields } = useField();
+
   useEffect(() => {
-    axios
-      .get("http://localhost:3500/topics")
-      .then((data) => setTopic(data.data));
+    axios.get(`${URL}/topics`).then((data) => {
+      setTopic(data.data);
+    });
   }, []);
+  const Navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,8 +39,15 @@ const Create = (props) => {
     });
     bodyFormData.append("image", selectedImage);
 
-    const url = import.meta.env.VITE_URL + "/collections";
-    axios.post(url, bodyFormData);
+    axios
+      .post(URL + "/collections", bodyFormData)
+      .then((data) => {
+        setCollections(data?.data);
+        Navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleChange = (e) => {
@@ -107,21 +122,21 @@ const Create = (props) => {
               <Form.Text className="form-text" muted={false}>
                 Collection Item's default forms*
               </Form.Text>
-              <Col className="col-1">
-                <Form.Label className="label">Id</Form.Label>
-                <Form.Control disabled type="number" placeholder="Number" />
-              </Col>
-              <Col className="col-2">
-                <Form.Label className="label">Name</Form.Label>
-                <Form.Control disabled type="text" placeholder="String" />
-              </Col>
-              <Col>
-                <Form.Label className="label">Tag</Form.Label>
-                <Form.Control disabled type="text" placeholder="Tag" />
-              </Col>
+              {fields?.map((item, index) => {
+                return (
+                  <Col key={index}>
+                    <Form.Label className="label">{item?.name}</Form.Label>
+                    <Form.Control
+                      disabled
+                      type={item?.type}
+                      placeholder={item?.name}
+                    />
+                  </Col>
+                );
+              })}
             </Row>
 
-            <CreateInputModal />
+            <CreateInputModal setFields={setFields} />
             <Button variant="primary" type="submit">
               Submit
             </Button>

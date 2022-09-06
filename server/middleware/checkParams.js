@@ -1,6 +1,5 @@
 const checkParams = (req, res, next) => {
-  const params = req.params?.ids?.slice(1);
-  console.log(params);
+  const params = req.params?.id;
   if (!params) {
     return res.status(404).json({ message: "Invalid user id" });
   }

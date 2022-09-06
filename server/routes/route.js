@@ -11,19 +11,19 @@ router.post("/register", registerController);
 router.post("/login", loginController);
 
 router.get("/users", users.getAllUsers);
-router.delete("/users:ids", checkParams, users.deleteUsers);
-router.patch("/users:ids", checkParams, users.blockUsers);
-router.patch("/users/unblock:ids", checkParams, users.unblockUsers);
+router.delete("/users/:id", checkParams, users.deleteUsers);
+router.patch("/users/:id", checkParams, users.blockUsers);
+router.patch("/users/unblock/:id", checkParams, users.unblockUsers);
 
-router.patch("/admin:ids", checkParams, admin.addAdmin);
-router.patch("/admin/remove:ids", checkParams, admin.removeAdmin);
+router.post("/admin/:id", checkParams, admin.addAdmin);
+router.patch("/admin/remove/:id", checkParams, admin.removeAdmin);
 
 router.post("/social_auth", handleSocialAuth);
 
-router.get("/topics", require("../controller/create").topicController)
-router.post("/topics", require("../controller/create").createTopicController)
+router.get("/topics", require("../controller/create").topicController);
+router.post("/topics", require("../controller/create").createTopicController);
 
-router.get("/tags", require("../controller/create").tagController)
-router.post("/tags", require("../controller/create").createTagController)
+router.get("/tags", require("../controller/create").tagController);
+router.post("/tags", require("../controller/create").createTagController);
 
 module.exports = router;

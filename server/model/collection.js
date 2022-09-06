@@ -9,7 +9,8 @@ const collection = new Schema({
   markdown: {
     type: Boolean,
     default: false
-  }
+  },
+  item_fields: Array
 });
 
 module.exports = mongoose.model("collections", collection);

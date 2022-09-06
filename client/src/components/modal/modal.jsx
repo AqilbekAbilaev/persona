@@ -1,16 +1,37 @@
 import React, { useState } from "react";
+import axios from "axios";
+
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 import addItemIcon from "../../assets/add-item.png";
 
-import "./modal.scss"
+import "./modal.scss";
 
-const CreateInputModal = () => {
+const URL = import.meta.env.VITE_URL;
+
+const CreateInputModal = ({ parent, setFields }) => {
   const [show, setShow] = useState(false);
+  const [item, setItem] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setItem({ ...item, [name]: value });
+  };
 
   const handleClose = () => setShow(false);
+  const handleCreate = () => {
+    if (!item.name || !item.type) {
+      alert("Please fill the form correctly!");
+      return;
+    }
+    axios.post(URL + "/collections/items", item).then((data) => {
+      setFields(data.data);
+    });
+    setShow(false);
+    setItem({});
+  };
   const handleShow = () => setShow(true);
   return (
     <>
@@ -25,14 +46,20 @@ const CreateInputModal = () => {
         <Modal.Body>
           <Form.Group>
             <Form.Label>Name</Form.Label>
-            <Form.Control type="text"></Form.Control>
+            <Form.Control
+              type="text"
+              name="name"
+              onChange={handleChange}
+            ></Form.Control>
           </Form.Group>
           <Form.Group className="mt-3">
             <Form.Label>Input type</Form.Label>
-            <Form.Select>
-              <option value="string">String</option>
-              <option value="number">Number</option>
+            <Form.Select name="type" onChange={handleChange}>
+              <option value=""></option>
+              <option value="String">String</option>
+              <option value="Number">Number</option>
               <option value="Boolean">Yes / No</option>
+              <option value="Date">Date</option>
             </Form.Select>
           </Form.Group>
         </Modal.Body>
@@ -40,7 +67,7 @@ const CreateInputModal = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleCreate}>
             Save Changes
           </Button>
         </Modal.Footer>

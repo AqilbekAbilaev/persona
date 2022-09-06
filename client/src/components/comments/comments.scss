@@ -1,0 +1,18 @@
+.comments-container {
+  margin-top: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.create-comment {
+  max-width: 28rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  &-btn {
+    margin-top: .6rem;
+  }
+}

@@ -15,8 +15,6 @@ import github from "../../assets/github.svg";
 
 import "./sign-up.scss";
 
-const URL = "http://localhost:3500/register";
-
 const SignUp = () => {
   const [usr, setUser] = useState({
     usrname: "",
@@ -42,7 +40,7 @@ const SignUp = () => {
     setErr(null);
 
     axios
-      .post(URL, {
+      .post(`${import.meta.env.VITE_URL}/register`, {
         email,
         pwd,
         usrname,

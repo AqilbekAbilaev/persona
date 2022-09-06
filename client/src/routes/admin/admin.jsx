@@ -15,7 +15,7 @@ import user from "../../assets/profile.png";
 
 import "./admin.scss";
 
-const URL = "http://localhost:3500/users";
+const URL = `${import.meta.env.VITE_URL}`;
 
 const Admin = () => {
   const [usrs, setUsrs] = useState([]);
@@ -23,7 +23,7 @@ const Admin = () => {
 
   useEffect(() => {
     axios
-      .get(URL)
+      .get(URL + "/users")
       .then((data) => setUsrs(data?.data))
       .catch((err) => console.log(err));
   }, []);
@@ -47,9 +47,9 @@ const Admin = () => {
   };
 
   const handleDelete = () => {
-    let ids = mapId(usrs, checkbox);
+    let id = mapId(usrs, checkbox);
     axios
-      .delete(`${URL}:${ids}`)
+      .delete(`${URL}/users/${id}`)
       .then((data) => {
         console.log(data);
         setUsrs(data?.data);
@@ -66,7 +66,7 @@ const Admin = () => {
   const handleBlock = () => {
     let ids = mapId(usrs, checkbox);
     axios
-      .patch(`${URL}:${ids}`)
+      .patch(`${URL}/users/${ids}`)
       .then((data) => {
         setUsrs(data?.data);
       })
@@ -79,7 +79,7 @@ const Admin = () => {
   const handleUnblock = () => {
     let ids = mapId(usrs, checkbox);
     axios
-      .patch(`${URL}/unblock:${ids}`)
+      .patch(`${URL}/users/unblock/${ids}`)
       .then((data) => {
         setUsrs(data?.data);
       })
@@ -90,9 +90,9 @@ const Admin = () => {
   };
 
   const handleAdmin = () => {
-    let ids = mapId(usrs, checkbox);
+    let id = mapId(usrs, checkbox);
     axios
-      .patch(`http://localhost:3500/admin:${ids}`)
+      .post(`${URL}/admin/${id}`)
       .then((data) => {
         setUsrs(data?.data);
       })
@@ -103,9 +103,9 @@ const Admin = () => {
   };
 
   const handleRemoveAdmin = () => {
-    let ids = mapId(usrs, checkbox);
+    let id = mapId(usrs, checkbox);
     axios
-      .patch(`http://localhost:3500/admin/remove:${ids}`)
+      .patch(`http://localhost:3500/admin/remove/${id}`)
       .then((data) => {
         setUsrs(data?.data);
       })
@@ -157,6 +157,7 @@ const Admin = () => {
       </div>
 
       <Table striped bordered hover responsive>
+        <caption>Users</caption>
         <thead>
           <tr>
             <th>
@@ -176,11 +177,12 @@ const Admin = () => {
           </tr>
         </thead>
         <tbody>
-          {usrs?.map(({ usrname, email, is_admin, is_blocked }, index) => {
+          {usrs?.map(({ is_admin, is_blocked, usrname, email }, index) => {
             return (
               <tr
                 key={index}
                 style={is_blocked ? { background: "#fa9393" } : null}
+                className={is_admin ? 'admin' : null}
               >
                 <td>
                   <Form.Check
@@ -193,7 +195,7 @@ const Admin = () => {
                 <td>{index + 1}</td>
                 <td>{usrname}</td>
                 <td>{email}</td>
-                <td style={is_admin ? { background: "aqua" } : null}>
+                <td>
                   {is_admin ? (
                     <img src={admin} alt="admin" />
                   ) : (

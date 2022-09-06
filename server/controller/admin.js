@@ -14,11 +14,12 @@ const removeAdmin = async (req, res) => {
     { _id: { $in: res.locals.params } },
     { $set: { is_admin: false } }
   );
+
   const updatedUsers = await User.find();
   return res.json(updatedUsers);
 };
 
 module.exports = {
   addAdmin,
-  removeAdmin,
+  removeAdmin
 };
